@@ -1,0 +1,4 @@
+name: Chohan
+version: ${project.version}
+main: ubiquitaku.chohan.Chohan
+api-version: 1.13
