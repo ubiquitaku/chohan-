@@ -107,7 +107,6 @@ public final class Chohan extends JavaPlugin {
         }
         Bukkit.broadcastMessage(pln + sender + "が" + money + "円の丁半を開始しました");
         game = true;
-        //15秒のタイマー開始 カウントのラスト5秒はチャットに表示　カウント終了後結果を表示すると同時にgame=false
 
         Bukkit.getScheduler().runTaskTimer(this, new Runnable()
         {
@@ -142,21 +141,19 @@ public final class Chohan extends JavaPlugin {
         }, 0L, 20L);
         game = false;
         Random rnd = new Random();
-        int dice = rnd.nextInt((2)) + 1;
-        if (dice == 1) {
+        boolean dice = rnd.nextBoolean();
+        if (dice) {
             Bukkit.broadcastMessage(pln + "丁の勝利");
             for (int i = 0; i < cho.size(); i++) {
-                Player c = getServer().getPlayer(String.valueOf(cho.get(i)));
-                Bukkit.broadcastMessage(String.valueOf(c));
+                Bukkit.broadcastMessage(String.valueOf(getServer().getPlayer(String.valueOf(cho.get(i)))));
                 //cに金を配布
             }
-        } else if (dice == 2) {
-            Bukkit.broadcastMessage(pln + "半の勝利");
-            for (int i = 0; i < han.size(); i++) {
-                Player c = getServer().getPlayer(String.valueOf(han.get(i)));
-                Bukkit.broadcastMessage(String.valueOf(c));
-                //hに金を配布
-            }
+            return true;
+        }
+        Bukkit.broadcastMessage(pln + "半の勝利");
+        for (int i = 0; i < han.size(); i++) {
+            Bukkit.broadcastMessage(String.valueOf(getServer().getPlayer(String.valueOf(cho.get(i)))));
+            //hに金を配布
         }
         return true;
     }
